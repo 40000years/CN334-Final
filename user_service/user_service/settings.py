@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 import os
 from pathlib import Path
-import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-q)d@zxjo28)dtwn9f_^xge^t*14)aoj!(sp^fzybd)dg&nd@$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['CN334-final.onrender.com']
+ALLOWED_HOSTS = []
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Application definition
@@ -89,7 +89,6 @@ DATABASES = {
         "PASSWORD": os.environ.get("POSTGRES_PASSWORD"), # <--- ชื่อนี้ตรงกับใน .env ใหม่
         "HOST": "db",  # HOST คือชื่อ service ของ database ใน docker-compose.yml
         "PORT": 5432,
-        'default': dj_database_url.config(conn_max_age=600)
     }
 }
 
