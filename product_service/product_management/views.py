@@ -1,37 +1,32 @@
-from django.shortcuts import render, redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import generics
-from .models import Product
-from .forms import ProductForm
-from .serializers import ProductSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from product_management.models import Product
+from product_management.serializers import ProductSerializer
+from rest_framework import status
 
-# View สำหรับหน้าเว็บ
-def add_product(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('add_product')  # วนกลับมาหน้าเดิม (หรือเปลี่ยนเป็น product_list ถ้ามี)
-    else:
-        form = ProductForm()
-    return render(request, 'product_management/add_product.html', {'form': form})
 
-# View สำหรับ API
-class ProductCreateAPI(APIView):
-    def post(self, request):
-        serializer = ProductSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=201)
-        return Response(serializer.errors, status=400)
+class ProductListView(APIView):
+    permission_classes = [AllowAny]
 
-# View จาก urls.py เดิม
-class ProductListView(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
+    def get(self, request, format=None):
+        qs = Product.objects.all()
 
-class ProductDetailView(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    lookup_field = 'id'
+        province = request.query_params.get("province")
+        if province:
+            qs = qs.filter(address__iexact=province)
+
+        serializer = ProductSerializer(qs, many=True)
+        return Response({"data": serializer.data}, status=200)
+
+
+class ProductDetailView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request, product_id, format=None):
+        try:
+            product = Product.objects.get(id=product_id)
+            serializer = ProductSerializer(product)
+            return Response({"data": serializer.data})
+        except Product.DoesNotExist:
+            return Response({"error": "Product not found"}, status=404)
