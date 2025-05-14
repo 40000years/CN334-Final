@@ -21,15 +21,22 @@ export default function RegisterPage() {
         setError(null);
         const data = { username, password, email, fullname, date_of_birth: dateOfBirth, sex, tel };
         try {
-            await axios.post(`${getUserUrl()}/api/register/`, data);
+            console.log('Registering with data:', data);
+            console.log('API URL:', getUserUrl());
+            const response = await axios.post(`${getUserUrl()}/api/register/`, data, {
+                headers: { 'Content-Type': 'application/json' },
+                timeout: 10000, // Timeout 10 วินาที
+            });
+            console.log('Register response:', response.data);
             router.push('/login');
         } catch (err) {
-            setError(err.response?.data?.error || 'Something went wrong.');
+            const errorMessage = err.response?.data?.error || err.message || 'Failed to connect to user service.';
+            console.error('Register error:', err);
+            setError(errorMessage);
         }
     };
 
     return (
-
         <div className="login-page">
             <div className="slideshow-container">
                 <div className="slide bg1"></div>
