@@ -17,37 +17,27 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from product_management.views import *
-from order_management.views import *
+from product_management.views import ProductListView, ProductDetailView, add_product, ProductCreateAPI
+from order_management.views import (
+    OrderDetailView, UserOrderListView, CartOrderView, ProductsInUserOrdersView,
+    AddToCartView, RemoveFromCartView, UpdateCartItemView, ConfirmOrderView,
+    ShippingListView, PaymentByOrderView
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("add-product/", add_product, name="add_product"),  # หน้าเว็บเพิ่ม product
+    path("api/products/", ProductCreateAPI.as_view(), name="product_create_api"),  # API เพิ่ม product
     path("api/product/all/", ProductListView.as_view(), name="product-list"),
-    path(
-        "api/product/<int:product_id>/",
-        ProductDetailView.as_view(),
-        name="product-detail",
-    ),
+    path("api/product/<int:product_id>/", ProductDetailView.as_view(), name="product-detail"),
     path("api/order/<int:id>/", OrderDetailView.as_view(), name="order-detail"),
     path("api/history/", UserOrderListView.as_view(), name="user-orders"),
     path("api/cart/", CartOrderView.as_view(), name="cart-orders"),
-    path(
-        "api/orders/products/<int:order_id>",
-        ProductsInUserOrdersView.as_view(),
-        name="products-in-orders",
-    ),
+    path("api/orders/products/<int:order_id>", ProductsInUserOrdersView.as_view(), name="products-in-orders"),
     path("api/cart/add/", AddToCartView.as_view(), name="add-to-cart"),
-    path(
-        "api/cart/remove/<int:product_id>/",
-        RemoveFromCartView.as_view(),
-        name="remove-from-cart",
-    ),
-    path("api/cart/update/<int:product_id>/", UpdateCartItemView.as_view()),
+    path("api/cart/remove/<int:product_id>/", RemoveFromCartView.as_view(), name="remove-from-cart"),
+    path("api/cart/update/<int:product_id>/", UpdateCartItemView.as_view(), name="update-cart-item"),
     path("api/order/confirm/", ConfirmOrderView.as_view(), name="confirm-order"),
     path("api/shipping/", ShippingListView.as_view(), name="shipping-list"),
-    path(
-        "api/payment/<int:order_id>/",
-        PaymentByOrderView.as_view(),
-        name="payment-by-order",
-    ),
+    path("api/payment/<int:order_id>/", PaymentByOrderView.as_view(), name="payment-by-order"),
 ]

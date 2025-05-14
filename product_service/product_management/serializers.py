@@ -1,28 +1,15 @@
 from rest_framework import serializers
-from product_management.models import *
-
-
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ["name"]
-
+from .models import Product, Category
 
 class ProductSerializer(serializers.ModelSerializer):
-    categories = serializers.SlugRelatedField(
-        many=True, read_only=True, slug_field="name"
+    categories = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(), many=True
     )
 
     class Meta:
         model = Product
         fields = [
-            "id",
-            "name",
-            "detail",
-            "categories",
-            "price",
-            "stock",
-            "expiration_date",
-            "available",
-            "address",
+            'id', 'name', 'detail', 'price', 'stock', 'categories',
+            'production_date', 'expiration_date', 'address', 'available',
+            'created_at', 'updated_at'
         ]
