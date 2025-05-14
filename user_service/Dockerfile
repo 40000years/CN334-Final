@@ -16,4 +16,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /code/
 
 # รัน Migration และ Start Server (สำหรับ Django)
-CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:8888 user-service.wsgi:application"]
+CMD ["sh", "-c", "python manage.py migrate && gunicorn --bind 0.0.0.0:8888 user_service.wsgi:application"]
