@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['cn334final.onrender.com', '*.onrender.com']
 CORS_ALLOWED_ORIGINS = [
-    'https://<frontend-domain>.onrender.com',
+    "https://cn334final-1.onrender.com",
 ]
 
 # Application definition
