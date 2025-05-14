@@ -27,7 +27,9 @@ SECRET_KEY = "django-insecure-q)d@zxjo28)dtwn9f_^xge^t*14)aoj!(sp^fzybd)dg&nd@$z
 DEBUG = True
 
 ALLOWED_HOSTS = ['cn334final.onrender.com', '*.onrender.com']
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    'https://<frontend-domain>.onrender.com',
+]
 
 # Application definition
 
