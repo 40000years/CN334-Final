@@ -4,7 +4,10 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from product_management.models import Product
 from product_management.serializers import ProductSerializer
 from rest_framework import status
-
+from rest_framework import generics, permissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from .models import Product
+from .serializers import ProductSerializer
 
 class ProductListView(APIView):
     permission_classes = [AllowAny]
@@ -30,3 +33,12 @@ class ProductDetailView(APIView):
             return Response({"data": serializer.data})
         except Product.DoesNotExist:
             return Response({"error": "Product not found"}, status=404)
+
+class ProductCreateView(generics.CreateAPIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
