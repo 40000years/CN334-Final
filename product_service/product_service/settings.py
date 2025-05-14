@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 import dj_database_url
 from pathlib import Path
-
+from django.contrib.auth import get_user_model
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,7 +27,6 @@ SECRET_KEY = "django-insecure-q)d@zxjo28)dtwn9f_^xge^t*14)aoj!(sp^fzybd)dg&nd@$z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['cn334final-product.onrender.com', '*.onrender.com']
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'cn334final-product.onrender.com').split(',')
 CORS_ALLOW_ALL_ORIGINS = True
 
