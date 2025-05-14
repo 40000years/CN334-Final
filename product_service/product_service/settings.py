@@ -33,17 +33,17 @@ CORS_ALLOW_ALL_ORIGINS = True
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "product_management",
-    "order_management",
-    "rest_framework",
-    "corsheaders",
-    "rest_framework_simplejwt",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'product_management.apps.ProductManagementConfig',  # เปลี่ยนเป็น AppConfig
+    'order_management',
+    'rest_framework',
+    'corsheaders',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -142,9 +142,3 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     )
 }
-def create_admin_user():
-    User = get_user_model()
-    username = os.getenv("ADMIN_USERNAME", "admin")
-    password = os.getenv("ADMIN_PASSWORD", "123")
-    if not User.objects.filter(username=username).exists():
-        User.objects.create_superuser(username, "", password)
