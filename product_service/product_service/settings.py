@@ -145,6 +145,6 @@ REST_FRAMEWORK = {
 def create_admin_user():
     User = get_user_model()
     username = os.getenv("ADMIN_USERNAME", "admin")
-    password = os.getenv("ADMIN_PASSWORD", "defaultpassword")
+    password = os.getenv("ADMIN_PASSWORD", "123")
     if not User.objects.filter(username=username).exists():
         User.objects.create_superuser(username, "", password)
