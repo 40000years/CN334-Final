@@ -20,5 +20,8 @@ COPY . .
 # Build Next.js สำหรับ Production
 RUN npm run build
 
-# รัน Production Server
-CMD ["npm", "run", "start"]
+# เปิด port ที่ Render กำหนด
+EXPOSE $PORT
+
+# รัน Production Server ด้วย PORT จาก Environment Variable
+CMD ["sh", "-c", "npm run start -- -p $PORT"]

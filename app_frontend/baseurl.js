@@ -1,7 +1,7 @@
 export const getUserUrl = () => {
-    return "http://127.0.0.1:3342";
+    return process.env.NEXT_PUBLIC_USER_API_URL || 'https://cn334final.onrender.com';
 };
 
 export const getProductUrl = () => {
-    return "http://127.0.0.1:3341";
+    return process.env.NEXT_PUBLIC_PRODUCT_API_URL || 'https://cn334final-product.onrender.com';
 };
