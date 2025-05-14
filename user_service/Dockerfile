@@ -3,8 +3,7 @@ FROM python:3.11
 # ตั้ง Environment Variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-RUN python -m venv /code/.venv
-ENV PATH="/code/.venv/bin:$PATH"
+
 
 # ตั้ง Working Directory
 WORKDIR /code
