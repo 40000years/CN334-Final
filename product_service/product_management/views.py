@@ -12,7 +12,9 @@ from rest_framework import generics, permissions
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from .models import Category, Product
 from .serializers import CategorySerializer, ProductSerializer
-
+from django.contrib.auth.models import User
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 class ProductListView(APIView):
     permission_classes = [AllowAny]
@@ -53,3 +55,9 @@ class CategoryCreateView(generics.CreateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+class CreateSuperuserView(APIView):
+    def get(self, request):
+        if not User.objects.filter(username='admin').exists():
+            User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
+            return Response({"message": "Superuser created"})
+        return Response({"message": "Superuser already exists"})
