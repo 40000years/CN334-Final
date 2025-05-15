@@ -120,7 +120,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # โฟลเดอร์เก็บไฟล์ static หลัง collectstatic
-STATICFILES_DIRS = [BASE_DIR / 'static']  # ถ้ามีไฟล์ static เพิ่มเติม
+STATICFILES_DIRS = []  # ลบหรือ comment ออก
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # ใช้ whitenoise สำหรับ Render
 
 # Default primary key field type
