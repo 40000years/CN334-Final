@@ -59,3 +59,4 @@ class CreateSuperuserView(APIView):
             User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
             return Response({"message": "Superuser created"})
         return Response({"message": "Superuser already exists"})
+    
