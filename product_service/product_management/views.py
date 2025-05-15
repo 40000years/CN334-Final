@@ -6,7 +6,7 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from product_management.models import Category, Product
 from product_management.serializers import CategorySerializer, ProductSerializer
 from django.contrib.auth.models import User
-from django.core.management import call_command
+
 
 class ProductListView(APIView):
     permission_classes = [AllowAny]
@@ -59,9 +59,3 @@ class CreateSuperuserView(APIView):
             User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
             return Response({"message": "Superuser created"})
         return Response({"message": "Superuser already exists"})
-class CollectStaticView(APIView):
-    authentication_classes = []
-    permission_classes = []
-    def get(self, request):
-        call_command('collectstatic', '--noinput')
-        return Response({"message": "Static files collected"})
