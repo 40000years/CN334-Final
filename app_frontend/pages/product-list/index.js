@@ -75,7 +75,7 @@ export default function ProductListPage() {
         { label: 'Raw', icon: '/icons/raw.png' },
         { label: 'Fish', icon: '/icons/fish.png' },
         { label: 'Seafood', icon: '/icons/seafood.png' },
-        { label: 'Vegetable', icon: '/icons/vegetable.png' },
+        { label: 'Vegetable', icon: '/icons/Vegetable.png' },
         { label: 'Fruit', icon: '/icons/fruit.png' },
         { label: 'Cereals', icon: '/icons/cereals.png' },
         { label: 'Drink', icon: '/icons/drink.png' },

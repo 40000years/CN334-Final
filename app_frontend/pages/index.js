@@ -66,7 +66,7 @@ export default function HomePage() {
 
   const categories = [
     { label: 'Raw', icon: '/icons/raw.png', href: '/product-list?category=Raw' },
-    { label: 'Vegetable', icon: '/icons/vegetable.png', href: '/product-list?category=Vegetable' },
+    { label: 'Vegetable', icon: '/icons/Vegetable.png', href: '/product-list?category=Vegetable' },
     { label: 'Fruit', icon: '/icons/fruit.png', href: '/product-list?category=Fruit' },
     { label: 'Fish', icon: '/icons/fish.png', href: '/product-list?category=Fish' },
     { label: 'Other', icon: '/icons/other.png', href: '/product-list?category=Other' },
