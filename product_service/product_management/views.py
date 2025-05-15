@@ -1,11 +1,9 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny
-from rest_framework import status, generics, permissions
-from rest_framework_simplejwt.authentication import JWTAuthentication
-from product_management.models import Category, Product
-from product_management.serializers import CategorySerializer, ProductSerializer
-from django.contrib.auth.models import User
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from product_management.models import Product
+from product_management.serializers import ProductSerializer
+from rest_framework import status
 
 
 class ProductListView(APIView):
@@ -32,31 +30,3 @@ class ProductDetailView(APIView):
             return Response({"data": serializer.data})
         except Product.DoesNotExist:
             return Response({"error": "Product not found"}, status=404)
-
-
-class ProductCreateView(generics.CreateAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-    def perform_create(self, serializer):
-        serializer.save()
-
-
-class CategoryCreateView(generics.CreateAPIView):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class CreateSuperuserView(APIView):
-    authentication_classes = []  # ยกเว้น authentication
-    permission_classes = []      # ยกเว้น permission
-    def get(self, request):
-        if not User.objects.filter(username='admin').exists():
-            User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
-            return Response({"message": "Superuser created"})
-        return Response({"message": "Superuser already exists"})
-    
