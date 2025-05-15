@@ -44,7 +44,6 @@ urlpatterns = [
     ),
     path("api/cart/update/<int:product_id>/", UpdateCartItemView.as_view()),
     path("api/order/confirm/", ConfirmOrderView.as_view(), name="confirm-order"),
-    path('api/collectstatic/', CollectStaticView.as_view(), name='collectstatic'),
     path("api/product/create/", ProductCreateView.as_view(), name="product-create"),
     path("api/category/create/", CategoryCreateView.as_view(), name="category-create"),
     path("api/create-superuser/", CreateSuperuserView.as_view(), name="create-superuser"),
