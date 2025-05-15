@@ -72,6 +72,7 @@ export default function HomePage() {
     { label: 'Other', icon: '/icons/other.png', href: '/product-list?category=Other' },
   ];
 
+
   const promotions = [
     { title: 'Meat', img: '/images/meat.jpg' },
     { title: 'Drink', img: '/images/drinks.jpg' },
