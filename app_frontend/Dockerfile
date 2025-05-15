@@ -1,13 +1,16 @@
-# ใช้ node:18-slim แทน alpine เพื่อความเข้ากันได้
 FROM node:18-slim
 
-# ตั้งค่า working directory
+# ติดตั้ง dependencies ที่จำเป็นสำหรับ sharp
+RUN apt-get update && apt-get install -y \
+  libvips-dev \
+  && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
 # คัดลอก package.json และ package-lock.json
-COPY package.json package-lock.json* ./
+COPY package.json package-lock.json ./
 
-# ติดตั้ง dependencies (รวม devDependencies สำหรับ build)
+# ติดตั้ง dependencies
 RUN npm ci
 
 # คัดลอกโค้ดทั้งหมด
@@ -16,8 +19,8 @@ COPY . .
 # รัน build
 RUN npm run build
 
-# เปิด port ที่กำหนดโดย Render.com
+# เปิด port
 EXPOSE $PORT
 
-# รัน app ด้วย PORT จาก environment variable
+# รัน app
 CMD ["npm", "run", "start"]
