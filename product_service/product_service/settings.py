@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     "rest_framework",
     "corsheaders",
     "rest_framework_simplejwt",
+    'whitenoise.runserver_nostatic',  # เพิ่ม whitenoise สำหรับ static files
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # เพิ่มก่อน SecurityMiddleware
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "corsheaders.middleware.CorsMiddleware",
@@ -60,7 +62,7 @@ ROOT_URLCONF = "product_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],  # เพิ่มสำหรับ custom templates (เช่น admin overrides)
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -119,6 +121,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # โฟลเดอร์เก็บไฟล์ static หลัง collectstatic
 STATICFILES_DIRS = [BASE_DIR / 'static']  # ถ้ามีไฟล์ static เพิ่มเติม
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # ใช้ whitenoise สำหรับ Render
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
