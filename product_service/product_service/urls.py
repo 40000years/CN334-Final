@@ -46,7 +46,6 @@ urlpatterns = [
     path("api/order/confirm/", ConfirmOrderView.as_view(), name="confirm-order"),
     path('api/collectstatic/', CollectStaticView.as_view(), name='collectstatic'),
     path("api/product/create/", ProductCreateView.as_view(), name="product-create"),
-    path('api/migrate/', MigrateView.as_view(), name='migrate'),
     path("api/category/create/", CategoryCreateView.as_view(), name="category-create"),
     path("api/create-superuser/", CreateSuperuserView.as_view(), name="create-superuser"),
     path("api/shipping/", ShippingListView.as_view(), name="shipping-list"),

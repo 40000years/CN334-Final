@@ -65,10 +65,3 @@ class CollectStaticView(APIView):
     def get(self, request):
         call_command('collectstatic', '--noinput')
         return Response({"message": "Static files collected"})
-class MigrateView(APIView):
-    authentication_classes = []
-    permission_classes = []
-    def get(self, request):
-        call_command('makemigrations')
-        call_command('migrate')
-        return Response({"message": "Migration completed"})
